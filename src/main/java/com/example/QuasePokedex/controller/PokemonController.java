@@ -29,4 +29,9 @@ public class PokemonController {
     public void delete(@PathVariable("id") String id){
         pokemonRepository.deleteById(id);
     }
+
+    @GetMapping("{id}")
+    public Pokemon getById(@PathVariable("id") String id){
+        return pokemonRepository.findById(id).orElse(null);
+    }
 }
