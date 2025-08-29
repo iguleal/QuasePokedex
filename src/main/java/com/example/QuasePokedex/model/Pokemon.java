@@ -41,6 +41,16 @@ public class Pokemon {
         this.type = type;
     }
 
+    public String validate() {
+        if (name == null || name.isBlank()) {
+            return "O campo 'name' é obrigatório";
+        }
+        if (type == null || type.isBlank()) {
+            return "O campo 'type' é obrigatório";
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return "Pokemon {" +

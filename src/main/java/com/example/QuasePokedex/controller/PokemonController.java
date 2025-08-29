@@ -2,6 +2,8 @@ package com.example.QuasePokedex.controller;
 
 import com.example.QuasePokedex.model.Pokemon;
 import com.example.QuasePokedex.repository.PokemonRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,12 +20,18 @@ public class PokemonController {
     }
 
     @PostMapping
-    public void save(@RequestBody Pokemon pokemon){
+    public ResponseEntity<?> save(@RequestBody Pokemon pokemon){
+
+        String error = pokemon.validate();
+        if (error != null){
+            return ResponseEntity.badRequest().body(error);  // obrigado chatGPT
+        }
+
         String id = UUID.randomUUID().toString();
         pokemon.setId(id);
-        pokemonRepository.save(pokemon);
+        Pokemon pokemonSaved = pokemonRepository.save(pokemon);
 
-        System.out.println("Pokemon salvo! " + pokemon);
+        return ResponseEntity.status(HttpStatus.CREATED).body(pokemonSaved);
     }
 
     @DeleteMapping("{id}")
