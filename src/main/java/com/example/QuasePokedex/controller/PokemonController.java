@@ -4,6 +4,7 @@ import com.example.QuasePokedex.model.Pokemon;
 import com.example.QuasePokedex.repository.PokemonRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -33,6 +34,11 @@ public class PokemonController {
     @GetMapping("{id}")
     public Pokemon getById(@PathVariable("id") String id){
         return pokemonRepository.findById(id).orElse(null);
+    }
+
+    @GetMapping
+    public List<Pokemon> getAll(){
+        return pokemonRepository.findAll();
     }
 
     @PutMapping("{id}")
