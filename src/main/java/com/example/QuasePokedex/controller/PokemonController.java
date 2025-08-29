@@ -34,4 +34,10 @@ public class PokemonController {
     public Pokemon getById(@PathVariable("id") String id){
         return pokemonRepository.findById(id).orElse(null);
     }
+
+    @PutMapping("{id}")
+    public void update (@PathVariable("id") String id, @RequestBody Pokemon pokemon ){
+        pokemon.setId(id);
+        pokemonRepository.save(pokemon);
+    }
 }
